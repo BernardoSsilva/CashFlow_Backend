@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cashflow.Communication\Cashflow.Communication.csproj" />
+    <ProjectReference Include="..\Cashflow.Domain\Cashflow.Domain.csproj" />
+    <ProjectReference Include="..\Cashflow.exception\Cashflow.Exception.csproj" />
+  </ItemGroup>
+
 </Project>
