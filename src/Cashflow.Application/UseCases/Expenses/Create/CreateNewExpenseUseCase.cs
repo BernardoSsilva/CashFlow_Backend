@@ -17,6 +17,7 @@ namespace Cashflow.Application.UseCases.Expenses.Create
             };
         }
 
+        // função para validação
         private void Validate(RequestExpense requestBody)
         {
             var validator = new RegisterExpenseValidator();

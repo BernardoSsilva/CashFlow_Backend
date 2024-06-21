@@ -1,5 +1,5 @@
-﻿using Cashflow.Communication.Enums;
-using Cashflow.Communication.Requests.expenses;
+﻿using Cashflow.Communication.Requests.expenses;
+using Cashflow.Exception;
 using FluentValidation;
 namespace Cashflow.Application.UseCases.Expenses.Create
 {
@@ -8,11 +8,10 @@ namespace Cashflow.Application.UseCases.Expenses.Create
         public RegisterExpenseValidator()
         {
             {
-                RuleFor(expense => expense.Title).MaximumLength(255).WithMessage("O titulo deve ter até 255 caracteres");
-                RuleFor(expense => expense.Title).NotEmpty().WithMessage("O titulo deve ser fornecido");
-                RuleFor(expense => expense.Amount).GreaterThan(0).WithMessage("O valor deve ser maior do que 0");
-                RuleFor(expense => expense.Date).LessThan(DateTime.UtcNow).WithMessage("A data de inicio deve ser anterior a data atual");
-                RuleFor(expense => expense.PaymentType).IsInEnum().WithMessage("Tipo de pagamento não reconhecido");
+                RuleFor(expense => expense.Title).NotEmpty().WithMessage(ResourceErrorMessages.TITLE_ERROR);
+                RuleFor(expense => expense.Amount).GreaterThan(0).WithMessage(ResourceErrorMessages.AMOUNT_BIGGER_THAN_ZERO);
+                RuleFor(expense => expense.Date).LessThan(DateTime.UtcNow).WithMessage(ResourceErrorMessages.INITIAL_DATE_BEFORE_PRESENT);
+                RuleFor(expense => expense.PaymentType).IsInEnum().WithMessage(ResourceErrorMessages.UNKNOWN_PAYMENT_TYPE);
             }
         }
     }

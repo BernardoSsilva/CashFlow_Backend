@@ -15,6 +15,7 @@ namespace Cashflow.API.Controllers
         [ProducesResponseType(typeof(CreateNewExpenseResponse), StatusCodes.Status200OK)]
         public IActionResult registerNewExpense([FromBody] RequestExpense requestBody)
         {
+
             CreateNewExpenseUseCase useCase = new CreateNewExpenseUseCase();
             var response = useCase.Execute(requestBody);
             return Created(string.Empty, response);
