@@ -1,6 +1,7 @@
 ﻿using Cashflow.Communication.Enums;
 using Cashflow.Communication.Requests.expenses;
 using Cashflow.Communication.Responses.expenses;
+using Cashflow.Exception.exceptions;
 
 namespace Cashflow.Application.UseCases.Expenses.Create
 {
@@ -18,25 +19,15 @@ namespace Cashflow.Application.UseCases.Expenses.Create
 
         private void Validate(RequestExpense requestBody)
         {
-
-            if (string.IsNullOrWhiteSpace(requestBody.Title))
+            var validator = new RegisterExpenseValidator();
+            var result = validator.Validate(requestBody);
+            if (result.IsValid == false)
             {
-                throw new ArgumentException("O titúlo é obrigatorio");
-            }
+                
+                var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
 
-            if (requestBody.Amount <= 0)
-            {
-                throw new ArgumentException("O valor deve ser maior do que 0");
-            }
 
-            if (DateTime.Compare(requestBody.Date, DateTime.UtcNow) == 1)
-            {
-                throw new ArgumentException("A data de inicio deve ser anterior a data atual");
-            }
-
-            if (!Enum.IsDefined(typeof(PaymentTypes), requestBody.PaymentType))
-            {
-                throw new ArgumentException("Este tipo de pagamento não é valido");
+                throw new ErrorOnValidationException(errorMessages);
             }
         }
     }
