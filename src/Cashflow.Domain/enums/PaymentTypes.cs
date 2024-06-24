@@ -1,5 +1,7 @@
-﻿namespace Cashflow.Communication.Enums
+﻿namespace Cashflow.Domain.enums
 {
+
+
     public enum PaymentTypes
     {
         Cash = 0,
@@ -8,3 +10,4 @@
         ElectronicTransfer = 3
     }
 }
+
