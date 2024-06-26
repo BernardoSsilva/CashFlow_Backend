@@ -1,4 +1,5 @@
 ﻿using Cashflow.Application.UseCases.Expenses.Create;
+using Cashflow.Application.UseCases.Expenses.Create.interfaces;
 using Cashflow.Communication.Requests.expenses;
 using Cashflow.Communication.Responses.expenses;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,13 @@ namespace Cashflow.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(CreateNewExpenseResponse), StatusCodes.Status200OK)]
-        public IActionResult registerNewExpense([FromBody] RequestExpense requestBody)
+        public async Task<IActionResult> registerNewExpense(
+            [FromServices] IRegisterExpenseUseCase useCase, 
+            [FromBody] RequestExpense requestBody)
         {
 
-            CreateNewExpenseUseCase useCase = new CreateNewExpenseUseCase();
-            var response = useCase.Execute(requestBody);
+           
+            var response = await useCase.Execute(requestBody);
             return Created(string.Empty, response);
 
         }

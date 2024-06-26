@@ -5,14 +5,14 @@ namespace Cashflow.Domain.entities
 
     public class Expense
     {
-        public long id { get; set; }
-        public required string title { get; set; }
-        public string? description { get; set; }
+        public long Id { get; set; }
+        public required string Title { get; set; }
+        public string? Description { get; set; }
 
-        public decimal amount { get; set; }
+        public decimal Amount { get; set; }
 
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
-        public PaymentTypes paymentType { get; set; }
+        public PaymentTypes PaymentType { get; set; }
     }
 }

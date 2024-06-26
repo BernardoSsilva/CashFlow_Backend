@@ -1,14 +1,24 @@
-﻿using Cashflow.Communication.Enums;
+﻿using Cashflow.Application.UseCases.Expenses.Create.interfaces;
+using Cashflow.Communication.Enums;
 using Cashflow.Communication.Requests.expenses;
 using Cashflow.Communication.Responses.expenses;
 using Cashflow.Domain.entities;
+using Cashflow.Domain.Repositories;
+using Cashflow.Domain.Repositories.expenses;
 using Cashflow.Exception.exceptions;
 
 namespace Cashflow.Application.UseCases.Expenses.Create
 {
-    public class CreateNewExpenseUseCase
+    public class CreateNewExpenseUseCase: IRegisterExpenseUseCase
     {
-        public CreateNewExpenseResponse Execute(RequestExpense requestBody)
+        private readonly IExpensesRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
+        public CreateNewExpenseUseCase(IExpensesRepository repository, IUnitOfWork unitOfWork)
+        {
+            _repository = repository;
+            _unitOfWork = unitOfWork;
+        }
+        public async Task<CreateNewExpenseResponse> Execute(RequestExpense requestBody)
         {
             Validate(requestBody);
             var entity = new Expense
@@ -21,6 +31,9 @@ namespace Cashflow.Application.UseCases.Expenses.Create
                 paymentType = (Domain.enums.PaymentTypes)requestBody.PaymentType
 
             };
+
+            await _repository.add(entity);
+            await _unitOfWork.Commit();
             return new CreateNewExpenseResponse
             {
                 Title = requestBody.Title,
