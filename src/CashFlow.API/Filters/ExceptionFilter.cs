@@ -25,27 +25,11 @@ namespace Cashflow.API.Filters
 
         private void ThrowNewException(ExceptionContext context)
         {
-            if (context.Exception is ErrorOnValidationException)
-            { 
-                var exception = context.Exception as ErrorOnValidationException;
+            var cashflowException = (CashflowException)context.Exception;
+            context.HttpContext.Response.StatusCode = cashflowException.statusCode;
+            context.Result = new ObjectResult(cashflowException.getErrors());
 
-                var errorResponse = new ErrorMessageJson(exception.Errors);
-                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Result = new BadRequestObjectResult(errorResponse);
-            }
-            else if (context.Exception is NotFoundException)
-            {
-                var errorResponse = new ErrorMessageJson(context.Exception.Message);
-                context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-                context.Result = new BadRequestObjectResult(errorResponse);
-            }
-
-            else
-            {
-                var errorResponse = new ErrorMessageJson(context.Exception.Message);
-                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Result = new BadRequestObjectResult(errorResponse);
-            }
+           
         }
         private void ThrowUnknownException(ExceptionContext context)
         {

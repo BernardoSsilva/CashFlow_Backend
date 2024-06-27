@@ -7,5 +7,8 @@
         {
             
         }
+
+        public abstract int statusCode { get;  }
+        public abstract List<string> getErrors();
     }
 }

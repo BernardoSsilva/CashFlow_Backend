@@ -117,22 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AMOUNT_BIGGER_THAN_ZERO" xml:space="preserve">
+  <data name="AMOUNT_BIGGER_THAN_ZERO1" xml:space="preserve">
     <value>O valor deve ser maior que 0</value>
   </data>
-  <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
+  <data name="EXPENSE_NOT_FOUND1" xml:space="preserve">
     <value>Despesa não encontrada</value>
   </data>
-  <data name="INITIAL_DATE_BEFORE_PRESENT" xml:space="preserve">
+  <data name="INITIAL_DATE_BEFORE_PRESENT1" xml:space="preserve">
     <value>A data de inicio deve ser anterior a data atual</value>
   </data>
-  <data name="TITLE_ERROR" xml:space="preserve">
+  <data name="TITLE_ERROR1" xml:space="preserve">
     <value>O titulo é obrigatório</value>
   </data>
-  <data name="UNKNOWN_ERROR" xml:space="preserve">
+  <data name="UNKNOWN_ERROR1" xml:space="preserve">
     <value>Erro desconhecido</value>
   </data>
-  <data name="UNKNOWN_PAYMENT_TYPE" xml:space="preserve">
+  <data name="UNKNOWN_PAYMENT_TYPE1" xml:space="preserve">
     <value>Tipo de pagamento desconhecido</value>
   </data>
 </root>
