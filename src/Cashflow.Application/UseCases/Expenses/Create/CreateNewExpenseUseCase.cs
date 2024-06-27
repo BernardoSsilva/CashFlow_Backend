@@ -1,5 +1,5 @@
-﻿using Cashflow.Application.UseCases.Expenses.Create.interfaces;
-using Cashflow.Communication.Enums;
+﻿using AutoMapper;
+using Cashflow.Application.UseCases.Expenses.Create.interfaces;
 using Cashflow.Communication.Requests.expenses;
 using Cashflow.Communication.Responses.expenses;
 using Cashflow.Domain.entities;
@@ -13,32 +13,21 @@ namespace Cashflow.Application.UseCases.Expenses.Create
     {
         private readonly IExpensesRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        public CreateNewExpenseUseCase(IExpensesRepository repository, IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public CreateNewExpenseUseCase(IExpensesRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public async Task<CreateNewExpenseResponse> Execute(RequestExpense requestBody)
+        public async Task<ExpenseResponse> Execute(RequestExpense requestBody)
         {
             Validate(requestBody);
-            var entity = new Expense
-            {
-                title = requestBody.Title,
-                amount = requestBody.Amount,
-                description = requestBody.Description,
-
-                date = requestBody.Date,
-                paymentType = (Domain.enums.PaymentTypes)requestBody.PaymentType
-
-            };
+            var entity = _mapper.Map<Expense>(requestBody);
 
             await _repository.add(entity);
             await _unitOfWork.Commit();
-            return new CreateNewExpenseResponse
-            {
-                Title = requestBody.Title,
-                Description = requestBody.Description
-            };
+            return _mapper.Map<ExpenseResponse>(entity);
         }
 
         // função para validação
