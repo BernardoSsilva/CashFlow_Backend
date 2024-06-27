@@ -20,14 +20,14 @@ namespace Cashflow.Application.UseCases.Expenses.Create
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<ExpenseResponse> Execute(RequestExpense requestBody)
+        public async Task<ShortExpenseResponse> Execute(RequestExpense requestBody)
         {
             Validate(requestBody);
             var entity = _mapper.Map<Expense>(requestBody);
 
             await _repository.add(entity);
             await _unitOfWork.Commit();
-            return _mapper.Map<ExpenseResponse>(entity);
+            return _mapper.Map<ShortExpenseResponse>(entity);
         }
 
         // função para validação

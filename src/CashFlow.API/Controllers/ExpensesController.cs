@@ -1,6 +1,6 @@
-﻿using Cashflow.Application.UseCases.Expenses.Create;
-using Cashflow.Application.UseCases.Expenses.Create.interfaces;
+﻿using Cashflow.Application.UseCases.Expenses.Create.interfaces;
 using Cashflow.Application.UseCases.Expenses.GetAll.Interfaces;
+using Cashflow.Application.UseCases.Expenses.GetById.Interfaces;
 using Cashflow.Communication.Requests.expenses;
 using Cashflow.Communication.Responses.expenses;
 using Microsoft.AspNetCore.Mvc;
@@ -41,5 +41,18 @@ namespace Cashflow.API.Controllers
             return NoContent();
 
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(List<DetaildedExpenseResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> getExpenseById(long id, [FromServices] IGetExpenseByIdUseCase useCase)
+        {
+            var response = await useCase.Execute(id, useCase.Get_mapper());
+
+            return Ok(response)
+        }
+
     }
 }

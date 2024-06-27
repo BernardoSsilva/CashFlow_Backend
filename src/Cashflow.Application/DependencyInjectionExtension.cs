@@ -3,6 +3,8 @@ using Cashflow.Application.UseCases.Expenses.Create;
 using Cashflow.Application.UseCases.Expenses.Create.interfaces;
 using Cashflow.Application.UseCases.Expenses.GetAll;
 using Cashflow.Application.UseCases.Expenses.GetAll.Interfaces;
+using Cashflow.Application.UseCases.Expenses.GetById;
+using Cashflow.Application.UseCases.Expenses.GetById.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cashflow.Application
@@ -25,6 +27,7 @@ namespace Cashflow.Application
         private static void AddUseCases(IServiceCollection service) {
             service.AddScoped<IRegisterExpenseUseCase, CreateNewExpenseUseCase>();
             service.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
+            service.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
 
         }
     }
