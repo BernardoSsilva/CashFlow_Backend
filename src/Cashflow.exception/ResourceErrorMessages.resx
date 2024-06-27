@@ -120,6 +120,9 @@
   <data name="AMOUNT_BIGGER_THAN_ZERO" xml:space="preserve">
     <value>Value must be greater than 0</value>
   </data>
+  <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
+    <value>Expense not found</value>
+  </data>
   <data name="INITIAL_DATE_BEFORE_PRESENT" xml:space="preserve">
     <value>Initial date must be before actual date</value>
   </data>

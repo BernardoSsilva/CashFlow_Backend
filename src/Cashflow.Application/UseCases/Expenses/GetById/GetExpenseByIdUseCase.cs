@@ -2,6 +2,8 @@
 using Cashflow.Application.UseCases.Expenses.GetById.Interfaces;
 using Cashflow.Communication.Responses.expenses;
 using Cashflow.Domain.Repositories.expenses;
+using Cashflow.Exception;
+using Cashflow.Exception.exceptions;
 
 namespace Cashflow.Application.UseCases.Expenses.GetById
 {
@@ -18,6 +20,11 @@ namespace Cashflow.Application.UseCases.Expenses.GetById
         public async Task<DetaildedExpenseResponse> Execute(long id)
         {
             var result = await _repository.getById(id);
+
+            if(result is null)
+            {
+                throw new NotFoundException(ResourceErrorMessages.EXPENSE_NOT_FOUND);
+            }
  
             return _mapper.Map<DetaildedExpenseResponse>(result);
  
